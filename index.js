@@ -1,8 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-// import { ApolloServerPluginInlineTrace } from "@apollo/server/core/plugin";
-
 import db from "./_db.js";
 
 //types
@@ -26,8 +24,7 @@ const resolvers = {
     reviews() {
       return db.reviews;
     },
-    review(_, args) {
-      //review(parent, args--query var, context)
+    review(_, args) {      
       return db.reviews.find((review) => review.id === args.id);
     },
   },
@@ -79,8 +76,7 @@ const server = new ApolloServer({
   //typeDefs -- definitions of types of data
   typeDefs,
   //resolvers -- bunch of resolver f-ons
-  resolvers,
-  //   plugins: [ApolloServerPluginInlineTrace()],
+  resolvers,  
 });
 
 const { url } = startStandaloneServer(server, {
